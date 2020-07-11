@@ -1,0 +1,56 @@
+Metadata-Version: 1.1
+Name: django-inbound-rules
+Version: 0.1
+Summary: A Django app to handle IP restriction on project.
+Home-page: UNKNOWN
+Author: Nilesh Kumar Dubey
+Author-email: nileshdubeyindia@gmail.com
+License: MIT
+Description: =====
+        Django Inbound Rules
+        =====
+        
+        Django Inbound Rules is a Django app to conduct Web-based polls. For each question,
+        visitors can choose between a fixed number of answers.
+        
+        Detailed documentation is in the "docs" directory.
+        
+        Quick start
+        -----------
+        
+        1. Add "django-inbound" to your INSTALLED_APPS setting like this::
+        
+            INSTALLED_APPS = [
+                ...
+                'django_inbound',
+            ]
+        
+        2. Add "django_inbound.middleware.restrict_user_middleware" to your MIDDLEWARE setting like this::
+        
+            MIDDLEWARE = [
+                ...
+                'django_inbound.middleware.restrict_user_middleware',
+                ...
+            ]
+        
+        3. Run ``python manage.py migrate`` to create the polls models.
+        
+        4. Start the development server and visit http://127.0.0.1:8000/admin/
+           to create a poll (you'll need the Admin app enabled).
+        
+        
+Platform: UNKNOWN
+Classifier: Environment :: Web Environment
+Classifier: Framework :: Django
+Classifier: Framework :: Django :: 3.0
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Topic :: Internet :: WWW/HTTP
+Classifier: Topic :: Internet :: WWW/HTTP :: Dynamic Content
