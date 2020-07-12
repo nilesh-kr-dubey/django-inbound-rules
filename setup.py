@@ -31,5 +31,6 @@ setup(
         "Topic :: Internet :: WWW/HTTP",
         "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
     ],
+    packages=["square"],
     include_package_data=True,
 )
