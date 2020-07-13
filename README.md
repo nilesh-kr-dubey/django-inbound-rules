@@ -1,10 +1,10 @@
 # Django Inbound Rules
 
 ## Description
-Django Inbound Rules is an app to allow or restrict IP's on specified urls based on CIDR blocks. Detailed documentation is in the "docs" directory.
+Simple Paginator for Djnago templates
 
 ## Installation
-```pip install django-inbound-rules```
+```pip install django-leafage```
 
 ## Quick start
 
