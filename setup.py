@@ -11,7 +11,7 @@ README = (HERE / "README.md").read_text()
 # This call to setup() does all the work
 setup(
     name="django-inbound-rules",
-    version="0.1",
+    version="0.2",
     description="Django Inbound Rules is an app to allow or restrict IP's on specified urls based on CIDR blocks.",
     long_description=README,
     long_description_content_type="text/markdown",
@@ -22,6 +22,7 @@ setup(
     classifiers=[
         "Environment :: Web Environment",
         "Framework :: Django",
+        "Framework :: Django :: 2.0",
         "Framework :: Django :: 3.0",
         "Intended Audience :: Developers",
         "License :: OSI Approved :: MIT License",
@@ -31,6 +32,9 @@ setup(
         "Topic :: Internet :: WWW/HTTP",
         "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
     ],
-    packages=["square"],
+    packages=['django_inbound'],
+    install_requires=[
+        "Django >= 2.0",
+    ],
     include_package_data=True,
 )

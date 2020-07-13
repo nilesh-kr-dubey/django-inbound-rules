@@ -4,20 +4,21 @@
 Simple Paginator for Djnago templates
 
 ## Installation
-```pip install django-leafage```
+```pip install django-inbound-rules```
 
 ## Quick start
 
-1. Add "django-inbound" to your INSTALLED_APPS setting like this::
+1. Add "django-inbound" to your INSTALLED_APPS in settings.py like this::
 
     ```
     INSTALLED_APPS = [
         ...
         'django_inbound',
+        ...
     ]
     ```
 
-2. Add "django_inbound.middleware.restrict_user_middleware" to your MIDDLEWARE setting like this::
+2. Add "django_inbound.middleware.restrict_user_middleware" to your MIDDLEWARE in settings.py like this::
 
     ```
     MIDDLEWARE = [
