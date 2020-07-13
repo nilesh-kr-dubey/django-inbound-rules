@@ -14,7 +14,7 @@ Installation
 Quick start
 -----------
 
-1. Add "django-inbound" to your INSTALLED_APPS in settings.py like this::
+1. Add "django_inbound" to your INSTALLED_APPS in settings.py like this::
 
     INSTALLED_APPS = [
         ...
