@@ -6,27 +6,27 @@ from django.utils.text import slugify
 from django.contrib.auth.models import Group
 from django.core.exceptions import ValidationError
 
-from django_inbound.services import get_resolved_urls
+from inbound.services import get_resolved_urls
 
 
-class InboundRule(models.Model):
+class Rule(models.Model):
     '''
         Model of Inbound Rule
     '''
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, verbose_name='Rule name', help_text='Max 100 character allowed')
     alias = models.CharField(max_length=100, null=True, blank=True)
     slug = models.CharField(max_length=100, null=True, blank=True)
-    namespace = models.CharField(max_length=100, null=True, blank=True)
+    namespace = models.CharField(max_length=100, null=True, blank=True, help_text='Allows a group of urls to be identified with a unique qualifier.')
     url_name = models.CharField(max_length=100, null=True, blank=True)
     group = models.ForeignKey(Group, on_delete=models.CASCADE)
-    allow_all = models.BooleanField(default=False, help_text='Allow all User', verbose_name='Allow all IP\'s')
+    allow_all = models.BooleanField(default=False, help_text='Allow all User of attached Group', verbose_name='Allow all IP\'s')
     is_active = models.BooleanField(default=True)
     extra = models.TextField(null=True, blank=True)
     created = models.DateTimeField(default=datetime.now)
 
     class Meta:
-        verbose_name = 'Inbound Rule'
-        verbose_name_plural = 'Inbound Rules'
+        verbose_name = 'Rule'
+        verbose_name_plural = 'Rules'
 
     def __str__(self):
         return self.name
@@ -40,27 +40,22 @@ class InboundRule(models.Model):
             if self.namespace not in all_namespace:
                 raise ValidationError({'namespace': "Invalid namesapce"})
         if self.url_name and self.namespace:
-            # path = '{0}:{1}'.format(self.namespace, self.url_name)
-            # try:
-            #     path = reverse(path)
-            # except:
-            #     raise ValidationError({'namespace': "Invalid namesapce", 'url_name': "Invalid url name"})
             patterns = get_resolver().url_patterns
             corrosponding_urls = get_resolved_urls(url_patterns=patterns, namespace=self.namespace)
             if self.url_name not in corrosponding_urls:
                 raise ValidationError({'url_name': "Invalid url name"})
-        super(InboundRule, self).clean(*args, **kwargs)
+        super(Rule, self).clean(*args, **kwargs)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
-        super(InboundRule, self).save(*args, **kwargs)
+        super(Rule, self).save(*args, **kwargs)
 
 
 class InboundIP(models.Model):
     '''
         Model of Inbound IP
     '''
-    inbound_rule = models.ForeignKey(InboundRule, on_delete=models.CASCADE)
+    rule = models.ForeignKey(Rule, on_delete=models.CASCADE)
     start_ip = models.GenericIPAddressField()
     end_ip = models.GenericIPAddressField(null=True, blank=True, help_text='For Single or specific IP, Leave it Blank')
     cidr = models.CharField(max_length=20, null=True, blank=True, help_text='CIDR Block', verbose_name='CIDR')
@@ -71,7 +66,7 @@ class InboundIP(models.Model):
         verbose_name_plural = 'Inbound IPs'
 
     def __str__(self):
-        return self.inbound_rule.name
+        return self.rule.name
 
     def clean(self, *args, **kwargs):
         start_ip = self.start_ip

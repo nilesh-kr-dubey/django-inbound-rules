@@ -1,0 +1,110 @@
+=====
+Django Inbound Rules
+=====
+
+Django Inbound Rules is an app to allow or restrict group of users on specified url(s) based on CIDR blocks(now IPv4 only) excluding user with superuser permissions.
+
+CIDR Block
+-----------
+
+Classless Inter-Domain Routing (CIDR) is a method for allocating IP addresses and for IP routing. CIDR is a new method of representation for IP addresses, now commonly known as CIDR notation, in which an address or routing prefix is written with a suffix indicating the number of bits of the prefix, such as 192.0.2.0/24 for IPv4, and 2001:db8::/32 for IPv6.
+
+For more details : https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing
+
+Installation
+-----------
+
+    pip install django-inbound-rules
+
+Quick start
+-----------
+
+1. Add "inbound" to your INSTALLED_APPS in settings.py like this::
+
+    INSTALLED_APPS = [
+        ...
+        'inbound',
+        ...
+    ]
+
+2. Add "inbound.middleware.restrict_user_middleware" to your MIDDLEWARE in settings.py like this::
+
+    MIDDLEWARE = [
+        ...
+        'inbound.middleware.restrict_user_middleware',
+        ...
+    ]
+
+3. Run ``python manage.py migrate`` to create the polls models.
+
+4. Start the development server and visit http://127.0.0.1:8000/admin/ to create your Inbound Rules
+
+
+Configuration
+-----------
+After successfully implementing installation process, Your Django Admin Dashboard looks like below containing Inbound app with Rules tables::
+Image 1
+Image 2
+
+SYNOPSIS
+-----------
+I. Rule:
+  1. Rule Name
+  2. Namespace
+  3. Url name
+  4. Group
+  5. Allow all IP's
+  6. Is active
+  7. Created
+II. Inbound IPS:
+  1. Start IP
+  2. End IP
+  4. CIDR
+
+
+OPTIONS
+-----------
+-- Rule name (string)
+  Rule identifier having max limit of 100 characters only.
+  If Rule name exists, it will be authorized by inbound rule else not except of users with superuser permissions.
+
+-- Namespace (string) & Url name (string)
+  Namespace attribute allows a group of urls to be identified with a unique qualifier.
+  Url name is name in url.
+  Only a valid combination is allowed to register.
+
+  If only namespace is provided: it will validate group of urls.
+  If namespace and Url name is provided: it will validate that specific urls.
+  If only Url name is provide: it will validate that specific urls (only in-case namespace not vailable)
+
+  ```
+  # project/urls.py(root)
+  urlpatterns = [
+      path('', include(('home.urls', 'home'), namespace='home')),
+  ]
+
+  # home/urs.py(app)
+  urlpatterns = [
+      path('', views.home, name='home'),
+  ]
+  ```
+
+-- Group
+  Access to url(s) is allowed to users of this group only.
+
+-- Allow all IP's (boolean field)
+  If true, all group users can access url(s).
+  Bypass all Inbound Ips  .
+
+-- Is active (boolean field)
+  To activate or deactivate certain rule name.
+
+-- Created (datetime field)
+  creations datetime, default current datetime selected.
+
+-- Start IP & End IP (IPv4, genric IP address)
+  For range of IPs of single CIDR block
+
+-- CIDR (readonly)
+  Based on your input: Start IP and End IP CIDR Block is created.
+
