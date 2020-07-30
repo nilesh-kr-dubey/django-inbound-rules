@@ -2,7 +2,7 @@
 Django Inbound Rules
 =====
 
-Django Inbound Rules is an app to allow or restrict IP's group of users on specified urls based on CIDR blocks excluding user with superuser permissions.
+Django Inbound Rules is an app to allow or restrict group of users on specified url(s) based on CIDR blocks(now IPv4 only) excluding user with superuser permissions.
 
 Detailed documentation is in the "docs" directory.
 
@@ -18,22 +18,21 @@ Quick start
 
     INSTALLED_APPS = [
         ...
-        'django_inbound',
+        'inbound',
         ...
     ]
 
-2. Add "django_inbound.middleware.restrict_user_middleware" to your MIDDLEWARE in settings.py like this::
+2. Add "inbound.middleware.restrict_user_middleware" to your MIDDLEWARE in settings.py like this::
 
     MIDDLEWARE = [
         ...
-        'django_inbound.middleware.restrict_user_middleware',
+        'inbound.middleware.restrict_user_middleware',
         ...
     ]
 
-3. Run ``python manage.py migrate`` to create the polls models.
+3. Run ``python manage.py migrate`` to implement django-inbound-rules.
 
-4. Start the development server and visit http://127.0.0.1:8000/admin/
-   to create a poll (you'll need the Admin app enabled).
+4. Start the development server and visit http://127.0.0.1:8000/admin/ to create your Inbound Rules.
 
 
 Licence

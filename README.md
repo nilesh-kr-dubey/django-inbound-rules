@@ -1,34 +1,38 @@
 # Django Inbound Rules
 
 ## Description
-Simple Paginator for Djnago templates
+Django Inbound Rules is an app to allow or restrict group of users on specified url(s) based on CIDR blocks(now IPv4 only) excluding user with superuser permissions.
 
 ## Installation
 ```pip install django-inbound-rules```
 
 ## Quick start
 
-1. Add "django_inbound" to your INSTALLED_APPS in settings.py like this::
+1. Add "inbound" to your INSTALLED_APPS in settings.py like this::
 
     ```
     INSTALLED_APPS = [
         ...
-        'django_inbound',
+        'inbound',
         ...
     ]
     ```
 
-2. Add "django_inbound.middleware.restrict_user_middleware" to your MIDDLEWARE in settings.py like this::
+2. Add "inbound.middleware.restrict_user_middleware" to your MIDDLEWARE in settings.py like this::
 
     ```
     MIDDLEWARE = [
         ...
-        'django_inbound.middleware.restrict_user_middleware',
+        'inbound.middleware.restrict_user_middleware',
         ...
     ]
     ```
 
-3. Run ```python manage.py migrate``` to create the inbound rules models.
+3. Run ```python manage.py migrate``` to implement django-inbound-rules.
+
+4. Start the development server and visit ```http://127.0.0.1:8000/admin/``` to create your Inbound Rules.
+
+5. For working logic, see documentation.
 
 
 ## Licence
