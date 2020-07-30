@@ -11,7 +11,7 @@ README = (HERE / "README.md").read_text()
 # This call to setup() does all the work
 setup(
     name="django-inbound-rules",
-    version="1.0",
+    version="1.0.0",
     description="Django Inbound Rules is an app to allow or restrict group of users on specified url(s) based on CIDR blocks(now IPv4 only) excluding user with superuser permissions.",
     long_description=README,
     long_description_content_type="text/markdown",
