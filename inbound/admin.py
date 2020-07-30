@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django_inbound.models import InboundRule, InboundIP
+from inbound.models import Rule, InboundIP
 
 # Register your models here.
 
@@ -11,12 +11,13 @@ class InboundIPInline(admin.TabularInline):
     extra = 1
 
 
-class InboundRuleAdmin(admin.ModelAdmin):
-    model = InboundRule
+class RuleAdmin(admin.ModelAdmin):
+    model = Rule
     list_display = ['name', 'namespace', 'url_name', 'group', 'allow_all', 'is_active', 'created']
-    exclude = ['alias', 'slug']
+    exclude = ['alias', 'slug', 'extra']
     list_filter = ['is_active', 'group', 'namespace', 'url_name']
+    readonly_fields = ['group']
     inlines = [InboundIPInline]
 
 
-admin.site.register(InboundRule, InboundRuleAdmin)
+admin.site.register(Rule, RuleAdmin)

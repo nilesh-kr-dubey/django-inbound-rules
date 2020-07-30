@@ -5,7 +5,7 @@ from django.db.models import F
 from datetime import datetime, timedelta
 from collections import OrderedDict
 
-from django_inbound.models import InboundRule
+from inbound.models import Rule
 
 
 def validate_inbound_rules(request=None, path=None):
@@ -23,7 +23,7 @@ def validate_inbound_rules(request=None, path=None):
     else:
         namespace = None
         url_name = None
-    all_inbound_rules = InboundRule.objects.filter(is_active=True)
+    all_inbound_rules = Rule.objects.filter(is_active=True)
     combine_rule = all_inbound_rules.filter(namespace=namespace, url_name=url_name)
     if combine_rule:
         return True
@@ -47,7 +47,7 @@ def get_groups(user):
     return list(user.groups.all().values_list('id', flat=True))
 
 def get_group_inboundrules(group_ids):
-    return InboundRule.objects.filter(group_id__in=group_ids).filter(is_active=True)
+    return Rule.objects.filter(group_id__in=group_ids).filter(is_active=True)
 
 def validate_allow_all_ips(inboundrules_queryset):
     if inboundrules_queryset.filter(allow_all=True):

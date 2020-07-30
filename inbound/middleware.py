@@ -1,9 +1,7 @@
-import os
-
 from django.http import Http404
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import redirect
-from django_inbound.queries import validate_inbound_rules, check_user_authentication, get_groups, get_group_inboundrules, validate_allow_all_ips, validate_ip_in_inbound_ips
+from inbound.queries import validate_inbound_rules, check_user_authentication, get_groups, get_group_inboundrules, validate_allow_all_ips, validate_ip_in_inbound_ips
 
 
 
