@@ -60,7 +60,7 @@ II. Inbound IPS:
   4. CIDR
 
 
-OPTIONS
+SYNOPSIS Description & Usage
 -----------
 -- Rule name (string)
   Rule identifier having max limit of 100 characters only.
