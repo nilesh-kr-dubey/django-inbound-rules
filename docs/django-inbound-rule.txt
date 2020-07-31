@@ -42,9 +42,7 @@ Quick start
 
 Configuration
 -----------
-After successfully implementing installation process, Your Django Admin Dashboard looks like below containing Inbound app with Rules tables::
-Image 1
-Image 2
+After successfully implementing installation process, you will get Inbound app with Rules tables at Django Admin Dashboard.
 
 SYNOPSIS
 -----------
