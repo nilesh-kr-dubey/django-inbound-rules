@@ -16,7 +16,7 @@ class RuleAdmin(admin.ModelAdmin):
     list_display = ['name', 'namespace', 'url_name', 'group', 'allow_all', 'is_active', 'created']
     exclude = ['alias', 'slug', 'extra']
     list_filter = ['is_active', 'group', 'namespace', 'url_name']
-    readonly_fields = ['group']
+    raw_id_fields = ['group']
     inlines = [InboundIPInline]
 
 
