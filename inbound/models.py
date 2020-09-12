@@ -32,18 +32,29 @@ class Rule(models.Model):
         return self.name
 
     def clean(self, *args, **kwargs):
-        if not self.namespace:
-            raise ValidationError({'namespace': "Please provide data"})
-        else:
-            url_resolver = get_resolver(get_urlconf())
-            all_namespace = list(url_resolver.namespace_dict.keys())
-            if self.namespace not in all_namespace:
-                raise ValidationError({'namespace': "Invalid namesapce"})
+        patterns = get_resolver().url_patterns
         if self.url_name and self.namespace:
-            patterns = get_resolver().url_patterns
             corrosponding_urls = get_resolved_urls(url_patterns=patterns, namespace=self.namespace)
-            if self.url_name not in corrosponding_urls:
+            if corrosponding_urls:
+                if self.url_name:
+                    if self.url_name not in corrosponding_urls:
+                        raise ValidationError({'url_name': "Invalid url name"})
+            else:
+                raise ValidationError({'namespace': "Invalid Namespace"})
+        elif self.namespace:
+            corrosponding_urls = get_resolved_urls(url_patterns=patterns, namespace=self.namespace)
+            if not corrosponding_urls:
+                raise ValidationError({'namespace': "Invalid Namespace"})
+        elif self.url_name:
+            corrosponding_urls = get_resolved_urls(url_patterns=patterns, namespace=None)
+            if corrosponding_urls:
+                if self.url_name not in corrosponding_urls:
+                    raise ValidationError({'url_name': "Invalid url name"})
+            else:
                 raise ValidationError({'url_name': "Invalid url name"})
+        else:
+            raise ValidationError({'url_name': "Invalid url name", 'namespace': "Invalid namespace"})
+
         super(Rule, self).clean(*args, **kwargs)
 
     def save(self, *args, **kwargs):
