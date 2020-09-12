@@ -30,6 +30,10 @@ def validate_inbound_rules(request=None, path=None):
     namespace_rule = all_inbound_rules.filter(namespace=namespace, url_name__isnull=True)
     if namespace_rule:
         return True
+    name_rule = all_inbound_rules.filter(namespace__isnull=True, url_name=url_name)
+    if name_rule:
+        return True
+
     return False
 
 
